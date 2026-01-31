@@ -3,16 +3,15 @@
   --pad: 12px;
   --gap: 10px;
   --shadow: 0 10px 30px rgba(0,0,0,.25);
-  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Helvetica, Arial, sans-serif;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: var(--sans);
-  line-height: 1.25;
-}
+/* ------------------------------------------------------------
+   Theme variables
+------------------------------------------------------------ */
 
 body[data-theme="dark"]{
   --bg: #0b1220;
@@ -47,15 +46,27 @@ body[data-theme="transparent"]{
   --warn: #fbbf24;
 }
 
+/* ------------------------------------------------------------
+   Base
+------------------------------------------------------------ */
+
 body {
+  margin: 0;
+  padding: 0;
   background: var(--bg);
   color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.25;
 }
 
 .wrap{
   padding: var(--pad);
   max-width: 900px;
 }
+
+/* ------------------------------------------------------------
+   Header
+------------------------------------------------------------ */
 
 .header{
   display:flex;
@@ -75,6 +86,10 @@ body {
   color: var(--muted);
 }
 
+/* ------------------------------------------------------------
+   Day cards
+------------------------------------------------------------ */
+
 .days{
   display: grid;
   gap: var(--gap);
@@ -88,7 +103,7 @@ body {
   overflow: hidden;
 }
 
-.day-card.today{
+.day-card.is-highlight{
   border-color: rgba(110,231,183,.55);
   box-shadow: 0 0 0 2px rgba(110,231,183,.15), var(--shadow);
 }
@@ -118,12 +133,18 @@ body {
   letter-spacing: .6px;
 }
 
-.row, .group{
+/* ------------------------------------------------------------
+   Rows
+------------------------------------------------------------ */
+
+.row,
+.group{
   padding: 10px 12px;
   border-bottom: 1px solid var(--border);
 }
 
-.row:last-child, .group:last-child{
+.row:last-child,
+.group:last-child{
   border-bottom: none;
 }
 
@@ -147,6 +168,10 @@ body {
   font-size: 12.5px;
 }
 
+/* ------------------------------------------------------------
+   Lunch grouping
+------------------------------------------------------------ */
+
 .group-head{
   display:flex;
   align-items: center;
@@ -159,9 +184,13 @@ body {
 .subrow{
   display:flex;
   gap: 10px;
-  padding: 8px 0 8px 16px;   /* <-- indent */
+  padding: 8px 0 8px 16px; /* indent */
   border-top: 1px dashed var(--border);
   position: relative;
+}
+
+.subrow:first-of-type{
+  border-top: 1px solid var(--border);
 }
 
 .subrow::before{
@@ -174,8 +203,8 @@ body {
   background: rgba(255,255,255,.10);
 }
 
-.subrow:first-of-type{
-  border-top: 1px solid var(--border);
+body[data-theme="light"] .subrow::before{
+  background: rgba(10,15,25,.12);
 }
 
 .subrow-left{
@@ -192,13 +221,30 @@ body {
   font-size: 12.5px;
 }
 
-body[data-theme="light"] .subrow::before{
-  background: rgba(10,15,25,.12);
-}
+/* ------------------------------------------------------------
+   No school
+------------------------------------------------------------ */
 
 .noschool .row-left{
   color: var(--warn);
 }
+
+.noschool-line{
+  display:flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--warn);
+}
+
+.noschool-text{
+  color: var(--text);
+}
+
+/* ------------------------------------------------------------
+   Icons
+------------------------------------------------------------ */
 
 .icon{
   width: 18px;
@@ -218,6 +264,10 @@ body[data-theme="light"] .subrow::before{
   width: 16px;
   height: 16px;
 }
+
+/* ------------------------------------------------------------
+   Footer
+------------------------------------------------------------ */
 
 .footer{
   margin-top: 10px;
@@ -239,6 +289,7 @@ code{
   border: 1px solid var(--border);
   background: rgba(0,0,0,.15);
 }
+
 body[data-theme="light"] code{
   background: rgba(255,255,255,.65);
 }

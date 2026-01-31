@@ -1,8 +1,10 @@
 from __future__ import annotations
+
 from flask import Blueprint, jsonify, request
-from datetime import date
-from ..utils import parse_date, normalize_view
+
 from ..services.menu_service import MenuService
+from ..utils import parse_date, normalize_view
+
 
 def create_api_blueprint(menu_service: MenuService, timezone: str) -> Blueprint:
     bp = Blueprint("api", __name__)
@@ -26,7 +28,7 @@ def create_api_blueprint(menu_service: MenuService, timezone: str) -> Blueprint:
         return jsonify({
             "view": view,
             "anchor_date": anchor.isoformat(),
-            "data": payload
+            "data": payload,
         })
 
     return bp

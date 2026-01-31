@@ -3,6 +3,9 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# Docker
+docker-compose.yml
+
 # C extensions
 *.so
 
