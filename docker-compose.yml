@@ -1,0 +1,11 @@
+services:
+  echo-park-menu-api:
+    build: .
+    container_name: echo-park-elementary-menu-api
+    ports:
+      - "${PORT:-8080}:8080"
+    environment:
+      FLASK_ENV: ${FLASK_ENV:-production}
+      APP_TIMEZONE: ${APP_TIMEZONE:-America/Chicago}
+      CACHE_TTL_SECONDS: ${CACHE_TTL_SECONDS:-1800}
+      NUTRISLICE_ROOT_URL: ${NUTRISLICE_ROOT_URL:-https://district196.api.nutrislice.com/menu/api/weeks/school/echo-park/menu-type/breakfast-lunch/}

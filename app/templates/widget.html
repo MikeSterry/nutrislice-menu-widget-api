@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='widget.css') }}">
+</head>
+<body data-theme="{{ theme }}">
+  <div class="wrap">
+    <div class="header">
+      <div class="title">{{ title }}</div>
+      <div class="sub">Echo Park Elementary • {{ anchor_date }} • view={{ view }}</div>
+    </div>
+
+    <div class="days">
+      {% for d in days %}
+        <div class="day-card
+          {% if d.date == highlight_date %}is-highlight{% endif %}
+          {% if d.is_yesterday %}rel-yesterday{% endif %}
+          {% if d.is_today %}rel-today{% endif %}
+          {% if d.is_tomorrow %}rel-tomorrow{% endif %}
+        ">
+          <div class="day-head">
+            <div class="day-date">
+              {{ d.date | todow }} • {{ d.date }}
+            </div>
+            {% if d.date == highlight_date %}
+              <div class="pill">selected</div>
+            {% endif %}
+          </div>
+
+          {% if d.no_school %}
+            <div class="row noschool">
+              <div class="row-left">
+                <span class="icon">{{ include('icons/closed.svg')|safe }}</span>
+                <span class="label">No school</span>
+              </div>
+              <div class="row-right">{{ d.no_school }}</div>
+            </div>
+          {% else %}
+            <!-- Breakfast row -->
+            <div class="row">
+              <div class="row-left">
+                <span class="icon">{{ include('icons/breakfast.svg')|safe }}</span>
+                <span class="label">Breakfast</span>
+              </div>
+              <div class="row-right">{{ d.breakfast or "—" }}</div>
+            </div>
+
+            <!-- Lunch group -->
+            <div class="group">
+              <div class="group-head">
+                <span class="icon">{{ include('icons/lunch.svg')|safe }}</span>
+                <span class="label">Lunch</span>
+              </div>
+
+              <div class="subrow">
+                <div class="subrow-left">
+                  <span class="icon sm">{{ include('icons/meal.svg')|safe }}</span>
+                  <span class="label">Main</span>
+                </div>
+                <div class="subrow-right">{{ d.lunch or "—" }}</div>
+              </div>
+
+              <div class="subrow">
+                <div class="subrow-left">
+                  <span class="icon sm">{{ include('icons/grab.svg')|safe }}</span>
+                  <span class="label">Grab &amp; Go</span>
+                </div>
+                <div class="subrow-right">{{ d.grab_and_go or "—" }}</div>
+              </div>
+
+              <div class="subrow">
+                <div class="subrow-left">
+                  <span class="icon sm">{{ include('icons/deli.svg')|safe }}</span>
+                  <span class="label">Deli Entree</span>
+                </div>
+                <div class="subrow-right">{{ d.deli_entree or "—" }}</div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="footer">
+      <div class="hint">Embed: <code>/widget?view=week&amp;theme=transparent</code></div>
+      <div class="hint">JSON: <code>/api?view=remainder</code></div>
+    </div>
+  </div>
+</body>
+</html>
