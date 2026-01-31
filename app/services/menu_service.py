@@ -5,6 +5,7 @@ from typing import Dict, Any, List
 from typing import Set
 
 from .menu_fetcher import MenuFetcher
+from ..utils import to_business_day
 from ..models import DayMenu
 from ..utils import (
     week_start,
@@ -46,9 +47,7 @@ class MenuService:
     # ------------------------------------------------------------------ #
 
     def day_at_offset(self, base: date, days_ahead: int) -> Dict[str, Any]:
-        """
-        Menu for base + N business days (skips weekends).
-        """
+        base = to_business_day(base)  # ✅ NEW: weekend -> Monday
         target = add_business_days(base, days_ahead)
         raw = self.fetcher.get_week(target)
         return self._day(raw, target)
@@ -107,26 +106,19 @@ class MenuService:
         return days
 
     def window_business_days(self, base: date, count: int) -> Dict[str, Any]:
-        """
-        Return a dict containing `count` school days starting at `base`,
-        skipping weekends. Includes base day as day 1.
-
-        Example: base=Friday, count=3 -> Fri, Mon, Tue
-        """
         count = max(1, int(count))
 
-        # Build the list of business dates we want to include
+        base = to_business_day(base)  # ✅ NEW: if weekend, start Monday
+
         dates: list[date] = [base]
         while len(dates) < count:
             dates.append(add_business_days(dates[-1], 1))
 
-        # Fetch week data for any weeks we touch (efficient across week boundaries)
         week_mondays: Set[date] = {week_start(d) for d in dates}
         week_data: Dict[str, Any] = {}
         for monday in sorted(week_mondays):
             week_data.update(self.fetcher.get_week(monday))
 
-        # Slice to only the dates we want (preserve order)
         out: Dict[str, Any] = {}
         for d in dates:
             k = iso(d)

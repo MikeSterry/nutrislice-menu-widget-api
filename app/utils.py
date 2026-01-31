@@ -70,6 +70,16 @@ def add_business_days(start: date, days_ahead: int) -> date:
 
     return d
 
+def to_business_day(d: date) -> date:
+    """
+    If d is Sat/Sun, return the following Monday. Otherwise return d.
+    """
+    if d.weekday() == 5:  # Saturday
+        return d + timedelta(days=2)
+    if d.weekday() == 6:  # Sunday
+        return d + timedelta(days=1)
+    return d
+
 
 # ------------------------------------------------------------------ #
 # Query param normalization

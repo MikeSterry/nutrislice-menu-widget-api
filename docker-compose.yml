@@ -7,7 +7,6 @@ services:
     environment:
       WEB_CONCURRENCY: "2"
       GUNICORN_THREADS: "4"
-      FLASK_ENV: ${FLASK_ENV:-production}
       APP_TIMEZONE: ${APP_TIMEZONE:-America/Chicago}
       CACHE_TTL_SECONDS: ${CACHE_TTL_SECONDS:-1800}
       NUTRISLICE_ROOT_URL: ${NUTRISLICE_ROOT_URL:-https://district196.api.nutrislice.com/menu/api/weeks/school/echo-park/menu-type/breakfast-lunch/}
