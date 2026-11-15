@@ -4,6 +4,7 @@ from datetime import datetime
 from flask import Flask
 
 from .controllers.api_controller import create_api_blueprint
+from .controllers.calendar_controller import create_calendar_blueprint
 from .controllers.widget_controller import create_widget_blueprint
 from .controllers.health_controller import create_health_blueprint
 from .services.menu_fetcher import MenuFetcher
@@ -71,6 +72,9 @@ def create_app() -> Flask:
         create_widget_blueprint(menu_service, app.config["TIMEZONE"])
     )
     app.register_blueprint(create_health_blueprint())
+    app.register_blueprint(
+        create_calendar_blueprint(menu_service, app.config["TIMEZONE"])
+    )
 
     # ------------------------------------------------------------------
     # Template helpers

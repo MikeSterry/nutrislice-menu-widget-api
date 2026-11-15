@@ -18,6 +18,20 @@ Flask API + embeddable widgets for Echo Park Elementary (District 196 / Nutrisli
 - `week` highlights the requested `date` as “today”
 - theme controls CSS variables via `body[data-theme]`
 
+### Calendar subscriptions (iCalendar)
+
+| Endpoint | Events |
+| --- | --- |
+| `/calendar/all.ics` | All four menu categories and published school closures |
+| `/calendar/breakfast.ics` | Breakfast |
+| `/calendar/lunch.ics` | Lunch |
+| `/calendar/grab-and-go.ics` | Grab & Go |
+| `/calendar/deli-entree.ics` | Deli Entree |
+
+Each feed includes published menu entries as all-day events for the current
+school week and the next three weeks, using the app's configured time zone.
+Subscribe to a full feed URL in your calendar app to receive menu updates.
+
 ### Health
 `/health`
 
